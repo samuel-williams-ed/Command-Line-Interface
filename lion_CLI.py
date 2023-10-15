@@ -21,10 +21,11 @@ def main():
     # Create instance of an ArgumentParser object which can hold flags as properties
     argumentParser = argparse.ArgumentParser(description="A few quality of life improvements for the CLI.")
 
-    # Possible flags
+    # Add flags
     argumentParser.add_argument("-n", "--name", default="User", help="Give a name to print at lion_CLI initialisation.")
     argumentParser.add_argument("--age", help="Give an age you'd like to be displayed in the CLI")
-    argumentParser.add_argument("gst", help="Get the Git repository status")
+    argumentParser.add_argument("gst", nargs='?', help="Get the Git repository status")
+    # nargs https://docs.python.org/2/library/argparse.html#nargs
 
     # Parse the flags
     args = argumentParser.parse_args()
