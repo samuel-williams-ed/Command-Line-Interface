@@ -11,6 +11,11 @@ def git_init():
 def git_status():
     subprocess.run(['git', 'status'])
 
+def git_add_all():
+    subprocess.run(['git', 'add', '.'])
+    git_status()
+    print("All changes staged")
+
 def main():
 
     # Create instance of an ArgumentParser object which can hold flags as properties
@@ -35,9 +40,10 @@ def main():
         git_status()
         addOption = input("Would you like to add all? \n ('y' for yes | 'n' for no | 'q' for exit ) \n")
         if addOption == "y":
-            print("Added!")
+            git_add_all()
         elif addOption == 'n':
             print("Which file would you like to add?")
+            # TODO: complete adding logic
 
 
     
