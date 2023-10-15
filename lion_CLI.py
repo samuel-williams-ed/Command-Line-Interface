@@ -1,28 +1,46 @@
 # sys module allows command line arguments
 import sys
-# argparse allows flags to be used
+import subprocess
+# argparse sets flags (that can be passed as arguments)
 import argparse
+
+
+def git_init():
+    subprocess.run(['git', 'init'])
+
+def git_status():
+    subprocess.run(['git', 'status'])
 
 def main():
 
     # Create instance of an ArgumentParser object which can hold flags as properties
-    flagHolder = argparse.ArgumentParser(description="A few quality of life improvements for the CLI.")
+    argumentParser = argparse.ArgumentParser(description="A few quality of life improvements for the CLI.")
 
     # Possible flags
-    flagHolder.add_argument("-n", "--name", default="User", help="Give a name to print at lion_CLI initialisation.")
-    flagHolder.add_argument("--age", default="Unknown", help="Give an age you'd like to be displayed in the CLI")
+    argumentParser.add_argument("-n", "--name", default="User", help="Give a name to print at lion_CLI initialisation.")
+    argumentParser.add_argument("--age", help="Give an age you'd like to be displayed in the CLI")
+    argumentParser.add_argument("gst", help="Get the Git repository status")
 
     # Parse the flags
-    args = flagHolder.parse_args()
+    args = argumentParser.parse_args()
 
     # Execute at initialisation
-    print(f"Hello, {args.name}!")
+    print(f"Hello, {args.name}")
 
     # flag conditionals 
-    if(args.age):
+    if args.age:
         print(f"My records show you are {args.age} years old.")
 
+    if args.gst:
+        git_status()
+        addOption = input("Would you like to add all? \n ('y' for yes | 'n' for no | 'q' for exit ) \n")
+        if addOption == "y":
+            print("Added!")
+        elif addOption == 'n':
+            print("Which file would you like to add?")
 
+
+    
 # call the main() function when script is run directly.
 if __name__=="__main__":
     main()
